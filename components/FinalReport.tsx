@@ -82,7 +82,7 @@ export function FinalReportView({ report }: { report: FinalReport }) {
   const renderSectionRows = (items: Recommendation[], fallbackMsg: string) => {
     if (items.length === 0) {
       return (
-        <div className="text-left py-3 px-4 rounded-xl border border-dashed border-neutral-800/60 bg-neutral-900/5 text-neutral-500 text-xs">
+        <div className="text-left py-4 px-4 rounded-xl border border-dashed border-neutral-800/60 bg-neutral-900/5 text-neutral-500 text-xs leading-relaxed">
           {fallbackMsg}
         </div>
       );
@@ -91,25 +91,25 @@ export function FinalReportView({ report }: { report: FinalReport }) {
     return items.map((item, idx) => (
       <div
         key={idx}
-        className="group flex items-center justify-between gap-4 p-3 bg-neutral-900/30 border border-neutral-800/50 hover:bg-neutral-800/80 rounded-xl transition-colors duration-150"
+        className="group flex flex-col sm:flex-row sm:items-start justify-between gap-4 p-4 bg-neutral-900/50 border border-neutral-800/60 hover:border-neutral-700/80 hover:bg-neutral-800/40 rounded-xl transition-all duration-200"
       >
-        {/* Core Metadata Info - Descriptions are locked to a clean, layout-stable double line */}
-        <div className="flex-1 min-w-0 space-y-1">
-          <div className="flex items-center gap-2">
-            <h4 className="text-xs font-semibold text-white truncate tracking-tight">
+        {/* Core Metadata Info - Unclamped text layouts to accommodate longer analytical variants */}
+        <div className="flex-1 min-w-0 space-y-1.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <h4 className="text-sm font-semibold text-white tracking-tight break-words">
               {item.title}
             </h4>
-            <span className="text-[9px] font-medium px-1.5 rounded bg-emerald-500/5 text-emerald-400 border border-emerald-500/10 whitespace-nowrap scale-95 origin-left">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/10 whitespace-nowrap">
               {item.value}
             </span>
           </div>
-          <p className="text-neutral-400 text-[11px] leading-relaxed line-clamp-2">
+          <p className="text-neutral-300 text-xs leading-relaxed break-words">
             {item.description}
           </p>
         </div>
 
         {item.links && item.links.length > 0 && (
-          <div className="flex-shrink-0 flex items-center gap-1 xl:pl-3 xl:border-l xl:border-neutral-800/60">
+          <div className="flex-shrink-0 flex items-center gap-1.5 pt-2 sm:pt-0 sm:pl-3 border-t sm:border-t-0 sm:border-l border-neutral-800/60 transition-colors">
             {item.links.map((link, lIdx) => (
               <ResourceBadge key={lIdx} link={link} />
             ))}
@@ -120,39 +120,39 @@ export function FinalReportView({ report }: { report: FinalReport }) {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 pb-20 px-4">
+    <div className="w-full max-w-7xl mx-auto space-y-8 pb-20 px-4">
       
       {/* Top Banner Score Block */}
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-xl p-6 shadow-xl flex flex-col md:flex-row items-center gap-6 relative overflow-hidden"
+        className="bg-gradient-to-br from-neutral-900 via-neutral-950 to-black border border-neutral-800/80 rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col md:flex-row items-center gap-6 relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-[80px]" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none" />
         
-        <div className="flex-shrink-0 relative">
-          <svg className="w-20 h-20 transform -rotate-90">
-            <circle cx="40" cy="40" r="34" stroke="currentColor" strokeWidth="5" fill="transparent" className="text-neutral-800" />
+        <div className="flex-shrink-0 relative bg-neutral-950/40 p-2 rounded-xl border border-neutral-800/50">
+          <svg className="w-24 h-24 transform -rotate-90">
+            <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-neutral-900" />
             <motion.circle 
-              cx="40" cy="40" r="34" stroke="currentColor" strokeWidth="5" fill="transparent" 
-              strokeDasharray={213.6} 
-              initial={{ strokeDashoffset: 213.6 }}
-              animate={{ strokeDashoffset: 213.6 - (213.6 * score) / 100 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="text-emerald-500" 
+              cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" 
+              strokeDasharray={251.2} 
+              initial={{ strokeDashoffset: 251.2 }}
+              animate={{ strokeDashoffset: 251.2 - (251.2 * score) / 100 }}
+              transition={{ duration: 1.4, ease: "easeOut" }}
+              className="text-emerald-400 stroke-linecap-round" 
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center flex-col">
-            <span className="text-lg font-black text-white">{score}</span>
-            <span className="text-[7px] uppercase text-neutral-500 font-bold tracking-wider">Index</span>
+            <span className="text-xl font-black text-white tracking-tight">{score}</span>
+            <span className="text-[8px] uppercase text-neutral-400 font-bold tracking-widest mt-0.5">Index</span>
           </div>
         </div>
 
-        <div className="flex-1 space-y-1 text-center md:text-left">
-          <h2 className="text-lg font-bold text-white flex items-center justify-center md:justify-start gap-2">
-            <TrendingUp className="text-emerald-500 w-4 h-4" /> Operational AI Audit
+        <div className="flex-1 space-y-2 text-center md:text-left">
+          <h2 className="text-xl font-bold text-white flex items-center justify-center md:justify-start gap-2.5">
+            <TrendingUp className="text-emerald-400 w-5 h-5" /> Operational AI System Audit
           </h2>
-          <p className="text-neutral-400 text-xs leading-relaxed max-w-5xl">
+          <p className="text-neutral-300 text-sm leading-relaxed max-w-5xl">
             {summary}
           </p>
         </div>
@@ -162,58 +162,66 @@ export function FinalReportView({ report }: { report: FinalReport }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Quadrant 1: Autonomous AI Agents */}
-        <div className="space-y-2.5 bg-neutral-900/10 border border-neutral-800/40 rounded-xl p-4">
-          <div className="flex items-center gap-2 pb-1.5 border-b border-neutral-800/80">
-            <Bot className="w-4 h-4 text-blue-400" />
+        <div className="space-y-4 bg-neutral-900/20 border border-neutral-800/60 rounded-2xl p-5 hover:border-neutral-800 transition-colors duration-200">
+          <div className="flex items-center gap-3 pb-3 border-b border-neutral-800/80">
+            <div className="p-2 bg-blue-500/10 rounded-xl border border-blue-500/10">
+              <Bot className="w-4 h-4 text-blue-400" />
+            </div>
             <div>
-              <h3 className="text-xs font-bold text-white tracking-tight">Autonomous AI Agents</h3>
-              <p className="text-[10px] text-neutral-500">User-facing automation engines</p>
+              <h3 className="text-sm font-bold text-white tracking-tight">Autonomous AI Agents</h3>
+              <p className="text-xs text-neutral-400 mt-0.5">User-facing automation and intelligence layers</p>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            {renderSectionRows(agents, "No workflow interface recommendations flags.")}
+          <div className="flex flex-col gap-3">
+            {renderSectionRows(agents, "No workflow interface optimization metrics flagged.")}
           </div>
         </div>
 
         {/* Quadrant 2: MCP Infrastructure */}
-        <div className="space-y-2.5 bg-neutral-900/10 border border-neutral-800/40 rounded-xl p-4">
-          <div className="flex items-center gap-2 pb-1.5 border-b border-neutral-800/80">
-            <Cpu className="w-4 h-4 text-orange-400" />
+        <div className="space-y-4 bg-neutral-900/20 border border-neutral-800/60 rounded-2xl p-5 hover:border-neutral-800 transition-colors duration-200">
+          <div className="flex items-center gap-3 pb-3 border-b border-neutral-800/80">
+            <div className="p-2 bg-orange-500/10 rounded-xl border border-orange-500/10">
+              <Cpu className="w-4 h-4 text-orange-400" />
+            </div>
             <div>
-              <h3 className="text-xs font-bold text-white tracking-tight">MCP Infrastructure</h3>
-              <p className="text-[10px] text-neutral-500">Model Context Protocol hosting pipelines</p>
+              <h3 className="text-sm font-bold text-white tracking-tight">MCP Infrastructure</h3>
+              <p className="text-xs text-neutral-400 mt-0.5">Model Context Protocol hosting and interface layers</p>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            {renderSectionRows(mcp, "No backend framework connections requested.")}
+          <div className="flex flex-col gap-3">
+            {renderSectionRows(mcp, "No backend protocol connections requested.")}
           </div>
         </div>
 
         {/* Quadrant 3: Semantic Skills */}
-        <div className="space-y-2.5 bg-neutral-900/10 border border-neutral-800/40 rounded-xl p-4">
-          <div className="flex items-center gap-2 pb-1.5 border-b border-neutral-800/80">
-            <Sparkles className="w-4 h-4 text-yellow-400" />
+        <div className="space-y-4 bg-neutral-900/20 border border-neutral-800/60 rounded-2xl p-5 hover:border-neutral-800 transition-colors duration-200">
+          <div className="flex items-center gap-3 pb-3 border-b border-neutral-800/80">
+            <div className="p-2 bg-yellow-500/10 rounded-xl border border-yellow-500/10">
+              <Sparkles className="w-4 h-4 text-yellow-400" />
+            </div>
             <div>
-              <h3 className="text-xs font-bold text-white tracking-tight">Semantic Skills & Tools</h3>
-              <p className="text-[10px] text-neutral-500">Knowledge maps, vectors, and model context tools</p>
+              <h3 className="text-sm font-bold text-white tracking-tight">Semantic Skills & Tools</h3>
+              <p className="text-xs text-neutral-400 mt-0.5">Knowledge configurations, tools, and execution models</p>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            {renderSectionRows(skills, "No dedicated semantic context skills identified.")}
+          <div className="flex flex-col gap-3">
+            {renderSectionRows(skills, "No dedicated context skills identified.")}
           </div>
         </div>
 
         {/* Quadrant 4: Workflow Integrations */}
-        <div className="space-y-2.5 bg-neutral-900/10 border border-neutral-800/40 rounded-xl p-4">
-          <div className="flex items-center gap-2 pb-1.5 border-b border-neutral-800/80">
-            <GitFork className="w-4 h-4 text-purple-400" />
+        <div className="space-y-4 bg-neutral-900/20 border border-neutral-800/60 rounded-2xl p-5 hover:border-neutral-800 transition-colors duration-200">
+          <div className="flex items-center gap-3 pb-3 border-b border-neutral-800/80">
+            <div className="p-2 bg-purple-500/10 rounded-xl border border-purple-500/10">
+              <GitFork className="w-4 h-4 text-purple-400" />
+            </div>
             <div>
-              <h3 className="text-xs font-bold text-white tracking-tight">Workflow Integrations</h3>
-              <p className="text-[10px] text-neutral-500">Event-driven triggers and webhook managers</p>
+              <h3 className="text-sm font-bold text-white tracking-tight">Workflow Integrations</h3>
+              <p className="text-xs text-neutral-400 mt-0.5">Event-driven triggers and sequential flow orchestration</p>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            {renderSectionRows(workflows, "No manual script hooks flagged for refactoring.")}
+          <div className="flex flex-col gap-3">
+            {renderSectionRows(workflows, "No operational orchestration adjustments flagged.")}
           </div>
         </div>
 
