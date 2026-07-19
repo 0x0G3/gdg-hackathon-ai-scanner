@@ -64,7 +64,7 @@ export default function Home() {
             <span>Powered by Gemma 4 Local Intelligence</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-neutral-200 to-neutral-500 pb-2">
+          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-neutral-200 to-neutral-500 pb-2">
             Audit your website for AI & MCP agent readiness instantly.
           </h1>
           
@@ -82,8 +82,8 @@ export default function Home() {
         >
           <form onSubmit={handleSubmit} className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-500" />
-            <div className="relative flex items-center bg-neutral-900 border border-neutral-800 rounded-2xl p-2 shadow-2xl focus-within:border-purple-500/50 transition-colors">
-              <div className="pl-4 text-neutral-400">
+            <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center bg-neutral-900 border border-neutral-800 rounded-2xl p-1.5 sm:p-2 shadow-2xl focus-within:border-purple-500/50 transition-colors gap-2 sm:gap-0">
+              <div className="hidden sm:block pl-4 text-neutral-400">
                 <Search className="w-6 h-6" />
               </div>
               <input
@@ -91,14 +91,14 @@ export default function Home() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://your-business.com"
-                className="w-full bg-transparent border-none text-white px-4 py-4 focus:outline-none placeholder:text-neutral-600 text-lg"
+                className="w-full bg-neutral-950 sm:bg-transparent border border-neutral-800 sm:border-none text-white px-4 py-3 sm:py-4 rounded-xl sm:rounded-none focus:outline-none focus:border-purple-500/50 sm:focus:border-none placeholder:text-neutral-600 text-base sm:text-lg text-center sm:text-left"
                 disabled={isLoading}
                 required
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-white text-black px-6 py-3 rounded-xl font-semibold flex items-center gap-2 hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto bg-white text-black px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
